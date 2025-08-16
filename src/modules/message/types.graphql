@@ -1,0 +1,38 @@
+type Author{
+  id: ID!
+  name: String!
+  email: String!
+}
+
+type Message {
+  id: ID!
+  content: String!
+  author: Author!
+  createdAt: String!
+  title:String!
+}
+
+type Users {
+  id: ID!
+  name: String!
+  email: String!
+  posts: [Post!]!
+  comments: [Comment!]!
+}
+
+type Posts {
+  id: ID!
+  title: String!
+  content: String!
+  author: User!
+  comments: [Comment!]!
+  createdAt: String!
+}
+
+type Comments {
+  id: ID!
+  text: String!
+  post: Post!
+  author: User!
+  createdAt: String!
+}
