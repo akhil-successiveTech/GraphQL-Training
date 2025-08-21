@@ -1,7 +1,7 @@
 import { messageMutationResolvers } from "./mutation.js";
 import { messageQueryResolvers } from "./query.js";
 
-// these are resolvers
+// All resolvers are called in this file
 export const messageModule ={
     Query:messageQueryResolvers,
     Mutation:messageMutationResolvers

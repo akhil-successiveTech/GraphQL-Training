@@ -2,7 +2,6 @@ type User {
     id: ID!
     name: String!
     email: String!
-    posts: [Post!]!
 }
 
 type Post {
@@ -10,12 +9,27 @@ type Post {
     title: String!
     content: String!
     author: User!
-    comments: [Comment!]!
 }
 
-type Comment{
-    id: ID!
-    content: String!
-    post: Post!
-    commenter: User!
+type Comment {
+  id: ID!
+  content: String!
+  post: Post!
+  author: User!
 }
+
+type PaginatedPosts {
+  posts: [Post!]!
+  totalPosts: Int!
+  totalPages: Int!
+  currentPage: Int!
+}
+# ERROR
+type Error {
+  code: String!
+  message: String!
+}
+
+union UserResult = User | Error
+union PostResult = Post | Error
+union CommentResult = Comment | Error

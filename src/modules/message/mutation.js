@@ -6,7 +6,6 @@ export const messageMutationResolvers = {
       content,
       author,
       createdAt: new Date().toISOString(),
-      // title: String(messages.length + 1),
     };
     messages.push(newMessage);
     return newMessage;
