@@ -2,6 +2,8 @@ type Author{
   id: ID!
   name: String!
   email: String!
+  password: String!
+  token: String
 }
 
 type Message {
@@ -9,5 +11,5 @@ type Message {
   content: String!
   author: Author! 
   createdAt: String!
-  title:String!
+  title: String!
 }

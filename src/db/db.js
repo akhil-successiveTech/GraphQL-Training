@@ -1,0 +1,15 @@
+import mongoose from 'mongoose';
+const MONGO_URI = 'mongodb://localhost:27017/mydatabase';
+export async function connectDB() {
+    try{
+        await mongoose.connect(MONGO_URI,{  
+            useUnifiedTopology: true,
+        });
+        console.log('Mongo db connected successfuly');
+    }
+    catch(err)
+    {
+        console.error('Mongo connection error:',err);
+        process.exit(1);
+    }
+}
