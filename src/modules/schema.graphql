@@ -1,16 +1,69 @@
 type Query {
-    messages(id: ID):[Message!]!
-    
-    users: [User!]!
-    user(id: ID!): User
+  messages(id: ID): [Message!]!
 
-    posts: [Post!]!
-    post(id: ID!): Post
+  users: [User!]!
+  user(id: ID!): User
 
-    comments: [Comment!]!
-    comment(id: ID!): Comment
+  posts: [Post!]!
+  # posts(page: Int!, limit: Int!, sortBy: String, order: String): PaginatedPosts!
+  paginatedPosts(page: Int!, limit: Int!, sortBy: String, order: String): PaginatedPosts!
+  post(id: ID!): Post
+
+  comments: [Comment!]!
+  comment(id: ID!): Comment
 }
-# for post,put,patch,delete
+
 type Mutation {
-    postMessage(content:String!,author:String!):Message!
+  postMessage(content: String!, author: String!): Message!
+  updateUser(id: ID!, name: String, email: String): User
+  deleteComment(id: ID!): Boolean
+  createPost(title: String!, content: String!, authorID: ID!): Post
+  createComment(content: String!, authorID: String!, postID: String!): Comment!
 }
+
+# type User {
+#   id: ID!
+#   name: String!
+#   email: String!
+#   age: Int
+# }
+
+# type Comment {
+#   id: ID!
+#   content: String!
+#   authorId: ID!
+#   postId: ID!
+# }
+
+# type Author{
+#   id: ID!
+#   name: String!
+#   email: String!
+# }
+
+# type Message {
+#   id: ID!
+#   content: String!
+#   author: Author!
+#   createdAt: String!
+#   title:String!
+# }
+
+# type Query {
+#     messages(id: ID):[Message!]!
+    
+#     users: [User!]!
+#     user(id: ID!): User
+
+#     posts: [Posts!]!
+#     post(id: ID!): Posts
+
+#     comments: [Comment!]!
+#     comment(id: ID!): Comment
+# }
+# # for post,put,patch,delete
+# type Mutation {
+#     postMessage(content:String!,author:String!):Message!
+#     updateUser(id: ID!, name: String, email: String): User
+#     deleteComment(id: ID!): Boolean
+# }
