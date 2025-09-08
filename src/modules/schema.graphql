@@ -1,69 +1,43 @@
 type Query {
-  messages(id: ID): [Message!]!
-
+  # Message query
+  message(id: ID): [Message!]!
+  messages: [Message!]!
+  # Query to get all users or a single user using id 
   users: [User!]!
   user(id: ID!): User
-
+  # Query to display all posts or paginated posts or a single post using id
   posts: [Post!]!
-  # posts(page: Int!, limit: Int!, sortBy: String, order: String): PaginatedPosts!
   paginatedPosts(page: Int!, limit: Int!, sortBy: String, order: String): PaginatedPosts!
   post(id: ID!): Post
-
+  # Query to display all comments or a single comment using id
   comments: [Comment!]!
   comment(id: ID!): Comment
+  ChatUsers:[ChatUser!]!
+  ChatMessages:[ChatMessage!]!
+  allMessages: [ChatUser]!
 }
 
 type Mutation {
-  postMessage(content: String!, author: String!): Message!
+  postMessage(content: String!, authorID: ID!, title:String!): Message!
   updateUser(id: ID!, name: String, email: String): User
   deleteComment(id: ID!): Boolean
   createPost(title: String!, content: String!, authorID: ID!): Post
   createComment(content: String!, authorID: String!, postID: String!): Comment!
+  registerUser(name: String!, email: String!,password: String!): User!
+  loginUser(email: String!, password: String!): User!
+
+  register(username:String!,password:String!):ChatUser!
+  login(username:String!,password:String!):AuthPayload!
+  sendMessage(content:String!):ChatMessage!
+  logout:LogoutResponse!
+
+
 }
 
-# type User {
-#   id: ID!
-#   name: String!
-#   email: String!
-#   age: Int
-# }
-
-# type Comment {
-#   id: ID!
-#   content: String!
-#   authorId: ID!
-#   postId: ID!
-# }
-
-# type Author{
-#   id: ID!
-#   name: String!
-#   email: String!
-# }
-
-# type Message {
-#   id: ID!
-#   content: String!
-#   author: Author!
-#   createdAt: String!
-#   title:String!
-# }
-
-# type Query {
-#     messages(id: ID):[Message!]!
-    
-#     users: [User!]!
-#     user(id: ID!): User
-
-#     posts: [Posts!]!
-#     post(id: ID!): Posts
-
-#     comments: [Comment!]!
-#     comment(id: ID!): Comment
-# }
-# # for post,put,patch,delete
-# type Mutation {
-#     postMessage(content:String!,author:String!):Message!
-#     updateUser(id: ID!, name: String, email: String): User
-#     deleteComment(id: ID!): Boolean
-# }
+type Subscription {
+  messageAdded: Message!
+  commentAdded: Comment!
+  userAdded: User!
+  userLogged: String!
+  userStatusChanged: ChatUser!
+}

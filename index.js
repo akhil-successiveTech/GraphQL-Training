@@ -1,18 +1,11 @@
-// Server main file
-import { ApolloServer } from "@apollo/server";
-import { startStandaloneServer } from "@apollo/server/standalone";
-import { ApolloServerPluginLandingPageLocalDefault } from "@apollo/server/plugin/landingPage/default";
-import { typeDefs } from "./src/schema/typeDefs.js";
-import { resolvers } from "./src/schema/resolvers.js";
+import { createApolloServer } from "./src/server/express.js";
+import { connectDB } from "./src/db/db.js";
 
-const server = new ApolloServer({
-  typeDefs,
-  resolvers,
-  plugins: [ApolloServerPluginLandingPageLocalDefault()],
+await connectDB();
+console.log("Database connection estabilished");
+const httpServer = await createApolloServer(4000);
+
+httpServer.listen(4001, () => {
+  console.log(`Query/Mutation endpoint: http://localhost:4000/graphql`);
+  console.log(`Subscription endpoint: ws://localhost:4000/graphql`);
 });
-
-const { url } = await startStandaloneServer(server, {
-  listen: { port: 4000 },
-});
-
-console.log(`Server ready at ${url}`);

@@ -1,3 +1,4 @@
+import { pubsub } from "../../server/pubsub.js";
 import { comments, posts, users, } from "./dataSource.js";
 
 export const blogMutationResolvers = {
@@ -14,7 +15,6 @@ export const blogMutationResolvers = {
 
   // Create comment
   createComment: (_, { content, authorID, postID }) => {
-
     const user = users.find((u) => u.id === String(authorID));
     if (!user) return ("Author not found");
     const post = posts.find((p) => p.id === String(postID));
@@ -28,6 +28,7 @@ export const blogMutationResolvers = {
     };
     // Push it into comments array
     comments.push(newComment);
+    pubsub.publish("COMMENT_ADDED", {commentAdded: newComment});
     return newComment;
   },
 
